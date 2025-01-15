@@ -1,0 +1,202 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<div class="row">
+  <h1 class="text-center">New Workout Plan</h1>
+  <div class="col-md-6 offset-md-3">
+    <form
+      action="/workoutplans"
+      method="POST"
+      novalidate
+      class="validated-form"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          name="workout[title]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="goal">Goal</label>
+        <select class="form-select" name="workout[goal]" id="goal" required>
+          <option selected disabled value="">Choose...</option>
+          <% for (let goal of goals) {%>
+          <option value="<%= goal %>"><%= goal %></option>
+          <% } %>
+        </select>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="category">Category</label>
+        <select
+          class="form-select"
+          name="workout[category]"
+          id="category"
+          required
+        >
+          <option selected disabled value="">Choose...</option>
+          <% for (let category of categories) {%>
+          <option value="<%= category %>"><%= category %></option>
+          <% } %>
+        </select>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="gender">Focused For</label>
+        <select class="form-select" name="workout[gender]" id="gender" required>
+          <option selected disabled value="">Choose...</option>
+          <% for (let gender of genders) {%>
+          <option value="<%= gender %>"><%= gender %></option>
+          <% } %>
+        </select>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="trainingLevel">Level</label>
+        <select
+          class="form-select"
+          name="workout[trainingLevel]"
+          id="trainingLevel"
+          required
+        >
+          <option selected disabled value="">Choose...</option>
+          <% for (let trainingLevel of trainingLevels) {%>
+          <option value="<%= trainingLevel %>"><%= trainingLevel %></option>
+          <% } %>
+        </select>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="programDuration">Program Duration</label>
+        <input
+          class="form-control"
+          type="text"
+          id="programDuration"
+          name="workout[programDuration]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="daysPerWeek">Days Per Week</label>
+        <select
+          class="form-select"
+          name="workout[daysPerWeek]"
+          id="daysPerWeek"
+          required
+        >
+          <option selected disabled value="">Choose...</option>
+          <% for (let days of daysPerWeek) {%>
+          <option value="<%= days %>"><%= days %></option>
+          <% } %>
+        </select>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="timePerWorkout">Time Per Workout</label>
+        <input
+          class="form-control"
+          type="text"
+          id="timePerWorkout"
+          name="workout[timePerWorkout]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="summary">Summary</label>
+        <textarea
+          class="form-control"
+          id="summary"
+          name="workout[summary]"
+          rows="4"
+          cols="30"
+          placeholder="Add a summary or basic introduction for the workout ..."
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <!-- <label class="form-label" for="description">Workout Plan</label>
+        <textarea
+          class="form-control"
+          id="description"
+          name="workout[description]"
+          rows="25"
+          cols="30"
+          placeholder="Type your workout plan ..."
+        ></textarea>
+      </div> -->
+        <label class="form-label" for="description">Workout Plan</label>
+        <!-- Button trigger modal -->
+        <div class="d-grid gap-2">
+        <button
+          type="button"
+          class="btn btn-sm btn-dark form-control"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          Type Workout
+        </button>
+      </div>
+        <!-- Modal -->
+        <div
+          class="modal fade card-rounded"
+          id="staticBackdrop"
+          data-bs-backdrop="static"
+          data-bs-keyboard="false"
+          tabindex="-1"
+          aria-labelledby="staticBackdropLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">
+                  Workout Plan
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <textarea
+                  id="description"
+                  name="workout[description]"
+                  cols="30"
+                  rows="25"
+                  placeholder="Type your workout ..."
+                ></textarea>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <div class="d-grid gap-2 col-6 mx-auto mb-3">
+          <button class="btn btn-sm btn-success">Add Workout</button>
+          <a href="/workoutplans/categorized" class="btn btn-sm btn-danger">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/javascripts/tinymceWrite.js"></script>

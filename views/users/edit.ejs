@@ -1,0 +1,128 @@
+<% layout("layouts/boilerplate.ejs") %>
+
+<div class="row">
+  <h1 class="text-center">Edit Profile</h1>
+  <div class="col-md-6 offset-md-3">
+    <form
+      action="/users/<%= user._id %>/edit"
+      method="POST"
+      novalidate
+      class="validated-form"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label class="form-label" for="bio">Bio</label>
+        <textarea
+          class="form-control"
+          id="bio"
+          name="bio"
+          cols="30"
+          rows="4"
+          placeholder="Add a bio ..."
+          required
+        >
+<%= user.bio %></textarea
+        >
+        <div class="invalid-feedback">Bio cannot be empty.</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input
+          class="form-control"
+          type="text"
+          id="location"
+          name="location"
+          value="<%= user.location%>"
+          placeholder="City, State"
+          required
+        />
+        <div class="invalid-feedback">Please enter a valid location.</div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Add Profile Image(s) ... </label>
+        <input
+          class="form-control"
+          type="file"
+          id="image"
+          name="image"
+          multiple
+        />
+      </div>
+      <div class="mb-3">
+        <% if (user.images.length) { %> 
+        <p><strong>Check to remove picture(s)</strong></p>
+        <% } %> 
+        <% user.images.forEach(function(img, i){%>
+        <div class="form-check-inline">
+          <input
+            type="checkbox"
+            id="image-<%=i%>"
+            name="deleteImages[]"
+            value="<%= img.filename %>"
+          />
+        </div>
+        <img class="img-thumbnail mb-3" src="<%=img.thumbnail%>" alt="" /></br>
+        <% }) %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="bench">Bench Press 1RM</label>
+        <div class="input-group">
+          <span class="input-group-text" id="inputGroupPrepend2">lbs.</span>
+          <input
+            class="form-control"
+            type="number"
+            id="bench"
+            name="bench"
+            value="<%= user.bench%>"
+          />
+        </div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="dead">Deadlift 1RM</label>
+        <div class="input-group">
+          <span class="input-group-text" id="inputGroupPrepend2">lbs.</span>
+          <input
+            class="form-control"
+            type="number"
+            id="dead"
+            name="dead"
+            value="<%= user.dead%>"
+          />
+        </div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="squat">Squat 1RM</label>
+        <div class="input-group">
+          <span class="input-group-text" id="inputGroupPrepend2">lbs.</span>
+          <input
+            class="form-control"
+            type="number"
+            id="squat"
+            name="squat"
+            value="<%= user.squat%>"
+          />
+        </div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <div class="d-grid gap-2 col-6 mx-auto mb-3">
+          <button class="btn btn-sm btn-warning">Update</button>
+          <a href="/users/<%= user._id %>" class="btn btn-sm btn-danger"
+            >Cancel</a
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  tinymce.init({
+    selector: "#description",
+    hidden_input: false,
+    readonly: false,
+    height: "100%",
+  });
+</script>
